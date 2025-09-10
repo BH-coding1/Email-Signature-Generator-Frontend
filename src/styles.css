@@ -1,0 +1,25 @@
+@plugin "daisyui";
+@import "tailwindcss";
+
+@tailwind utilities;
+
+
+
+
+/* Override for light background - targets the root and body */
+:root {
+  --color-base-100: #ffffff; /* Pure white background; adjust to your color, e.g., #f9fafb for off-white */
+  --color-base-200: #ffffff; /* Light gray for surfaces/cards */
+}
+
+body {
+  background-color: hsl(var(--color-base-100));
+  color: #000000; 
+}
+
+@media (prefers-color-scheme: white) {
+  :root {
+    --color-base-100: #ffffff !important;
+  }
+}
+
