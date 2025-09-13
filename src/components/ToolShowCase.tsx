@@ -1,22 +1,25 @@
-import gmailLogo from '../../public/google_mail_gmail_logo_icon_159346.png'; 
-import outlookLogo from '../../public/microsoft_office_outlook_logo_icon_145721.png';
-import yahooLogo from '../../public/1485482357-yahoo_78671.png'
 const ToolShowCase = () => {
   const tools = [
-    { name: 'Gmail', logo: gmailLogo },
-    { name: 'Outlook', logo: outlookLogo },
-    { name: 'Yahoo', logo:yahooLogo },
+    { name: 'Gmail', logo:'../../public/google_mail_gmail_logo_icon_159346.png' },
+    { name: 'Outlook', logo:'../../public/microsoft_office_outlook_logo_icon_145721.png'  },
+    { name: 'Yahoo', logo:'../../public/1485482357-yahoo_78671.png'},
+    { name: 'Airmail', logo:'../../public/Airmail.png'},
   ];
 
   return (
-    <div className="flex flex-col sm:flex-row w-full py-12 px-6 gap-6 sm:gap-0 justify-center items-center bg-base-100">
+    <>
+    <div className="flex text-lg text-gray-600 justify-center pt-5 ">
+        <p>Generates Email signatures that can be used with :</p>
+    </div>
+    <div className="flex flex-col sm:flex-row w-full py-12 px-6 gap-6 sm:gap-0 justify-center items-center pt-5 bg-base-100 mb-10">
+      
       {tools.map((tool, index) => (
         <div key={tool.name} className="flex items-center">
-          <div className="card bg-white rounded-lg shadow-md border border-gray-200 w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
+          <div className="card bg-white rounded-lg  w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
             <img
               src={tool.logo}
               alt={`${tool.name} logo`}
-              className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
+              className="w-10 h-10 sm:w-20 sm:h-20 object-contain"
             />
           </div>
           {index < tools.length - 1 && (
@@ -25,6 +28,7 @@ const ToolShowCase = () => {
         </div>
       ))}
     </div>
+    </>
   );
 };
 

@@ -1,6 +1,8 @@
+import { Link } from "@tanstack/react-router";
+
 const Hero = () => {
   return (
-    <div className="hero bg-white min-h-screen">
+    <div className="hero bg-white py-20 ">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <img
           src="\public\Screenshot 2025-09-10 202203.png"
@@ -14,6 +16,11 @@ const Hero = () => {
             a id nisi.
           </p>
           <button className="btn h-13 w-50 rounded-4xl bg-blue-600 text-lg ">Get Started</button>
+          <Link to='/sign-in'>
+          <button className="btn h-13  w-50  bg-white border-blue-600 text-blue-600 rounded-4xl text-lg ml-4 transition duration:300 hover:bg-blue-100">
+          Sign In
+        </button>
+        </Link>
         </div>
       </div>
     </div>
