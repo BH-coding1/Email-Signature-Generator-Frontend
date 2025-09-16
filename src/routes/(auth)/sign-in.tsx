@@ -17,8 +17,8 @@ function RouteComponent() {
         </div>
 
         {/* Left Welcome Section (take 1/3) */}
-        <div className="hidden md:flex flex-col justify-center items-center bg-blue-600 text-white p-10">
-          <p className="text-base text-blue-100 text-center max-w-xs">
+        <div className="hidden md:flex flex-col justify-center items-center bg-linear-to-t from-sky-500 to-indigo-500 text-white  p-10">
+          <p className=" text-blue-100 text-center text-xl max-w-xs">
             Sign in to access your account and continue creating amazing emails
             with <span className="font-semibold">MailGen</span>.
           </p>

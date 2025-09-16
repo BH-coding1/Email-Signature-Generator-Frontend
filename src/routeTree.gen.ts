@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactIndexRouteImport } from './routes/contact/index'
 import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
+import { Route as PlatformToolsPlatformSettingsIndexRouteImport } from './routes/PlatformTools/platformSettings/index'
+import { Route as PlatformToolsDashboardIndexRouteImport } from './routes/PlatformTools/dashboard/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +36,34 @@ const authRegisterRoute = authRegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformToolsPlatformSettingsIndexRoute =
+  PlatformToolsPlatformSettingsIndexRouteImport.update({
+    id: '/PlatformTools/platformSettings/',
+    path: '/PlatformTools/platformSettings/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PlatformToolsDashboardIndexRoute =
+  PlatformToolsDashboardIndexRouteImport.update({
+    id: '/PlatformTools/dashboard/',
+    path: '/PlatformTools/dashboard/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/register': typeof authRegisterRoute
   '/sign-in': typeof authSignInRoute
   '/contact': typeof ContactIndexRoute
+  '/PlatformTools/dashboard': typeof PlatformToolsDashboardIndexRoute
+  '/PlatformTools/platformSettings': typeof PlatformToolsPlatformSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/register': typeof authRegisterRoute
   '/sign-in': typeof authSignInRoute
   '/contact': typeof ContactIndexRoute
+  '/PlatformTools/dashboard': typeof PlatformToolsDashboardIndexRoute
+  '/PlatformTools/platformSettings': typeof PlatformToolsPlatformSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +71,34 @@ export interface FileRoutesById {
   '/(auth)/register': typeof authRegisterRoute
   '/(auth)/sign-in': typeof authSignInRoute
   '/contact/': typeof ContactIndexRoute
+  '/PlatformTools/dashboard/': typeof PlatformToolsDashboardIndexRoute
+  '/PlatformTools/platformSettings/': typeof PlatformToolsPlatformSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/register' | '/sign-in' | '/contact'
+  fullPaths:
+    | '/'
+    | '/register'
+    | '/sign-in'
+    | '/contact'
+    | '/PlatformTools/dashboard'
+    | '/PlatformTools/platformSettings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/register' | '/sign-in' | '/contact'
-  id: '__root__' | '/' | '/(auth)/register' | '/(auth)/sign-in' | '/contact/'
+  to:
+    | '/'
+    | '/register'
+    | '/sign-in'
+    | '/contact'
+    | '/PlatformTools/dashboard'
+    | '/PlatformTools/platformSettings'
+  id:
+    | '__root__'
+    | '/'
+    | '/(auth)/register'
+    | '/(auth)/sign-in'
+    | '/contact/'
+    | '/PlatformTools/dashboard/'
+    | '/PlatformTools/platformSettings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +106,8 @@ export interface RootRouteChildren {
   authRegisterRoute: typeof authRegisterRoute
   authSignInRoute: typeof authSignInRoute
   ContactIndexRoute: typeof ContactIndexRoute
+  PlatformToolsDashboardIndexRoute: typeof PlatformToolsDashboardIndexRoute
+  PlatformToolsPlatformSettingsIndexRoute: typeof PlatformToolsPlatformSettingsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +140,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/PlatformTools/platformSettings/': {
+      id: '/PlatformTools/platformSettings/'
+      path: '/PlatformTools/platformSettings'
+      fullPath: '/PlatformTools/platformSettings'
+      preLoaderRoute: typeof PlatformToolsPlatformSettingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/PlatformTools/dashboard/': {
+      id: '/PlatformTools/dashboard/'
+      path: '/PlatformTools/dashboard'
+      fullPath: '/PlatformTools/dashboard'
+      preLoaderRoute: typeof PlatformToolsDashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +162,9 @@ const rootRouteChildren: RootRouteChildren = {
   authRegisterRoute: authRegisterRoute,
   authSignInRoute: authSignInRoute,
   ContactIndexRoute: ContactIndexRoute,
+  PlatformToolsDashboardIndexRoute: PlatformToolsDashboardIndexRoute,
+  PlatformToolsPlatformSettingsIndexRoute:
+    PlatformToolsPlatformSettingsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

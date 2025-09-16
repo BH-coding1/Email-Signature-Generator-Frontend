@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-
+import { Link as ScrollLink } from "react-scroll";
 const NavBar = () => {
   return (
     <div className="navbar bg-white shadow-sm border-b border-gray-100 px-10 py-3 sticky top-0 z-50 flex justify-between">
@@ -24,27 +24,24 @@ const NavBar = () => {
           </li>
 
           <li>
-            <Link
-              to="/features"
-              className="hover:text-blue-600"
-              activeProps={{
-                className: "text-blue-600 font-semibold",
-              }}
-            >
+            <ScrollLink
+             smooth={true} duration={500} 
+              to="features"
+              className="hover:text-blue-600 cursor-pointer">
+          
+              
               Features
-            </Link>
+            </ScrollLink>
           </li>
 
           <li>
-            <Link
-              to="/pricing"
-              className="hover:text-blue-600"
-              activeProps={{
-                className: "text-blue-600 font-semibold",
-              }}
+            <ScrollLink
+             smooth={true} duration={500} 
+              to="pricing"
+              className="hover:text-blue-600 cursor-pointer"
             >
               Pricing
-            </Link>
+            </ScrollLink>
           </li>
 
           <li>
@@ -61,12 +58,12 @@ const NavBar = () => {
         </ul>
       </div>
       <div className=" space-x-3">
-        <button className="btn btn-sm bg-white border border-blue-500 text-blue-500 hover:bg-blue-50">
+        <Link to='/register' className="btn btn-sm bg-white border border-blue-500 text-blue-500 hover:bg-blue-50">
           Get Started
-        </button>
-        <button className="btn btn-sm bg-blue-500 border-blue-500 text-white hover:bg-blue-600">
+        </Link>
+        <Link to='/sign-in' className="btn btn-sm bg-blue-600 border-none text-white hover:bg-blue-600">
           Sign In
-        </button>
+        </Link>
       </div>
     </div>
   );
