@@ -11,7 +11,7 @@ const ToolShowCase = () => {
     <div className="flex text-lg text-gray-600 justify-center pt-5 ">
         <p>Generates Email signatures that can be used with :</p>
     </div>
-    <div className="flex flex-col sm:flex-row w-full py-12 px-6 gap-6 sm:gap-0 justify-center items-center pt-5 bg-base-100 mb-10">
+    <div className="flex flex-col sm:flex-row w-full py-12 px-6 gap-6 sm:gap-0 justify-center items-center pt-5 bg-white mb-10">
       
       {tools.map((tool, index) => (
         <div key={tool.name} className="flex items-center">

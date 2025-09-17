@@ -13,7 +13,7 @@ function App() {
   return (
     <>
     <NavBar/>
-    <div className='px-9'>
+    <div className='px-9 bg-white'>
       <Hero/>
       <ToolShowCase/>
       <FeaturesSection/>

@@ -14,6 +14,7 @@ import { Route as ContactIndexRouteImport } from './routes/contact/index'
 import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as PlatformToolsPlatformSettingsIndexRouteImport } from './routes/PlatformTools/platformSettings/index'
+import { Route as PlatformToolsIntergrationIndexRouteImport } from './routes/PlatformTools/intergration/index'
 import { Route as PlatformToolsDashboardIndexRouteImport } from './routes/PlatformTools/dashboard/index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -42,6 +43,12 @@ const PlatformToolsPlatformSettingsIndexRoute =
     path: '/PlatformTools/platformSettings/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PlatformToolsIntergrationIndexRoute =
+  PlatformToolsIntergrationIndexRouteImport.update({
+    id: '/PlatformTools/intergration/',
+    path: '/PlatformTools/intergration/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PlatformToolsDashboardIndexRoute =
   PlatformToolsDashboardIndexRouteImport.update({
     id: '/PlatformTools/dashboard/',
@@ -55,6 +62,7 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof authSignInRoute
   '/contact': typeof ContactIndexRoute
   '/PlatformTools/dashboard': typeof PlatformToolsDashboardIndexRoute
+  '/PlatformTools/intergration': typeof PlatformToolsIntergrationIndexRoute
   '/PlatformTools/platformSettings': typeof PlatformToolsPlatformSettingsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -63,6 +71,7 @@ export interface FileRoutesByTo {
   '/sign-in': typeof authSignInRoute
   '/contact': typeof ContactIndexRoute
   '/PlatformTools/dashboard': typeof PlatformToolsDashboardIndexRoute
+  '/PlatformTools/intergration': typeof PlatformToolsIntergrationIndexRoute
   '/PlatformTools/platformSettings': typeof PlatformToolsPlatformSettingsIndexRoute
 }
 export interface FileRoutesById {
@@ -72,6 +81,7 @@ export interface FileRoutesById {
   '/(auth)/sign-in': typeof authSignInRoute
   '/contact/': typeof ContactIndexRoute
   '/PlatformTools/dashboard/': typeof PlatformToolsDashboardIndexRoute
+  '/PlatformTools/intergration/': typeof PlatformToolsIntergrationIndexRoute
   '/PlatformTools/platformSettings/': typeof PlatformToolsPlatformSettingsIndexRoute
 }
 export interface FileRouteTypes {
@@ -82,6 +92,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/contact'
     | '/PlatformTools/dashboard'
+    | '/PlatformTools/intergration'
     | '/PlatformTools/platformSettings'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -90,6 +101,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/contact'
     | '/PlatformTools/dashboard'
+    | '/PlatformTools/intergration'
     | '/PlatformTools/platformSettings'
   id:
     | '__root__'
@@ -98,6 +110,7 @@ export interface FileRouteTypes {
     | '/(auth)/sign-in'
     | '/contact/'
     | '/PlatformTools/dashboard/'
+    | '/PlatformTools/intergration/'
     | '/PlatformTools/platformSettings/'
   fileRoutesById: FileRoutesById
 }
@@ -107,6 +120,7 @@ export interface RootRouteChildren {
   authSignInRoute: typeof authSignInRoute
   ContactIndexRoute: typeof ContactIndexRoute
   PlatformToolsDashboardIndexRoute: typeof PlatformToolsDashboardIndexRoute
+  PlatformToolsIntergrationIndexRoute: typeof PlatformToolsIntergrationIndexRoute
   PlatformToolsPlatformSettingsIndexRoute: typeof PlatformToolsPlatformSettingsIndexRoute
 }
 
@@ -147,6 +161,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformToolsPlatformSettingsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/PlatformTools/intergration/': {
+      id: '/PlatformTools/intergration/'
+      path: '/PlatformTools/intergration'
+      fullPath: '/PlatformTools/intergration'
+      preLoaderRoute: typeof PlatformToolsIntergrationIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/PlatformTools/dashboard/': {
       id: '/PlatformTools/dashboard/'
       path: '/PlatformTools/dashboard'
@@ -163,6 +184,7 @@ const rootRouteChildren: RootRouteChildren = {
   authSignInRoute: authSignInRoute,
   ContactIndexRoute: ContactIndexRoute,
   PlatformToolsDashboardIndexRoute: PlatformToolsDashboardIndexRoute,
+  PlatformToolsIntergrationIndexRoute: PlatformToolsIntergrationIndexRoute,
   PlatformToolsPlatformSettingsIndexRoute:
     PlatformToolsPlatformSettingsIndexRoute,
 }

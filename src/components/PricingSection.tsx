@@ -40,9 +40,9 @@ const plans = [
 const PricingSection = () => {
   return (
     <Element name="pricing">
-      <section className="pt-20 px-4">
+      <section className="pt-20 px-4 pb-30">
         {/* Heading */}
-        <div className="text-center mb-15">
+        <div className="text-center pb-15">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
             Flexible Plans For Every Need
           </h2>
