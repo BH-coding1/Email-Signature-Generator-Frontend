@@ -22,7 +22,7 @@ const items = [
   },
   {
     title: "Signature Generator",
-    url: "#",
+    url: "/platformTools/SignatureGenerator",
     icon: Edit,
   },
   {

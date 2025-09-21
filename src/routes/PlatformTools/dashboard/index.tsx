@@ -1,7 +1,7 @@
 import MetricsSection from "@/components/MetricsSection";
 import SideBarLayout from "@/components/SidebarLayout";
 import SignaturePreviewCard from "@/components/SignaturePreviewCard";
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
 export const Route = createFileRoute("/PlatformTools/dashboard/")({
   component: SignatureDashboard,
 });
@@ -40,8 +40,8 @@ export default function SignatureDashboard() {
 
 
             {/* Right column: templates + integrations */}
-            <aside className="space-y-4">
-              <div className="rounded-xl bg-white border border-slate-200 p-4 shadow-sm">
+            <aside className="space-y-4 sm:w-full ">
+              <div className="rounded-xl bg-white border border-slate-200 p-4 shadow-sm  sm:w-full">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm text-slate-500">Templates</div>
@@ -59,7 +59,7 @@ export default function SignatureDashboard() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-white border border-slate-200 p-4 shadow-sm">
+              <div className="rounded-xl bg-white border border-slate-200 p-4 shadow-sm h-62">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm text-slate-500">Integrations</div>
@@ -116,7 +116,7 @@ export default function SignatureDashboard() {
               <div className="text-xl font-semibold">Ready to Create your signature?</div>
               <div className="mt-2">Go and try out our latest Templates and create your very own Signature Now</div>
               <div className="mt-4">
-                <button className="px-5 py-2 bg-white text-blue-600 rounded-md font-medium">Create</button>
+                <Link to="/PlatformTools/SignatureGenerator/Editor" className="px-5 py-2 bg-white text-blue-600 rounded-md font-medium">Create</Link>
               </div>
             </div>
           </section>

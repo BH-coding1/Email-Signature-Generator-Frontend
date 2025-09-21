@@ -6,6 +6,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ClassicLayout from "./ClassicLayout";
 
 export default function SignaturePreviewCard() {
   return (
@@ -29,31 +30,7 @@ export default function SignaturePreviewCard() {
       </CardHeader>
 
       <CardContent>
-        <div className="bg-white p-6">
-          <div className="flex items-center gap-4">
-            <img
-              src="/logo512.png"
-              className="h-14 w-14 rounded-full"
-              alt="avatar"
-            />
-
-            <div>
-              <div className="text-lg font-semibold">John Hancock</div>
-              <div className="text-sm text-slate-600">
-                Head of Sales • Acme Inc.
-              </div>
-              <div className="text-sm text-slate-500 mt-2">
-                📞 +27 73 744 9823 • 🌐 acme.co
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-5 border-t pt-4 text-sm text-slate-700">
-            <p>Best regards,</p>
-            <p className="font-semibold mt-2">John Hancock</p>
-            <p className="text-xs text-slate-500 mt-1">Acme Inc • Sales</p>
-          </div>
-        </div>
+        <ClassicLayout/>
       </CardContent>
     </Card>
   );

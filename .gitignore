@@ -1,9 +1,32 @@
-node_modules
+# Node
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / Editor
 .DS_Store
-dist
-dist-ssr
-*.local
-count.txt
+.vscode/
+.idea/
+
+# Build / Output
+dist/
+dist-ssr/
+.nitro/
+.next/
+out/
+coverage/
+
+# Env
 .env
-.nitro
-.tanstack
+*.local
+
+# Tanstack
+.tanstack/
+
+# Misc
+count.txt
+Thumbs.db
+*.swp
