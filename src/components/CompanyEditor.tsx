@@ -55,11 +55,11 @@ const CompanyEditor = () => {
   const { data, setCompany } = useSignature(); // context
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: data.company, // prefill with context values
+    defaultValues: data.company, 
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setCompany(values); // 👈 save to context
+    setCompany(values);
     console.log("Updated Context:", values);
   }
 

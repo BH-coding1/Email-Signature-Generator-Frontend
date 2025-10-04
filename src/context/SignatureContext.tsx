@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState,useEffect, type ReactNode } from "react";
 
 // -------------------- Types --------------------
 type CompanyData = {
@@ -34,6 +34,7 @@ type ImageData = {
 };
 
 export type SignatureData = {
+
   company: CompanyData;
   style: StyleData;
   images: ImageData;
@@ -54,11 +55,14 @@ const SignatureContext = createContext<SignatureContextType | undefined>(
   undefined
 );
 
+
+
+
 // -------------------- Provider --------------------
 export const SignatureProvider = ({ children }: { children: ReactNode }) => {
-  const [data, setData] = useState<SignatureData>({
-    company: {
-      FirstName: "",
+  const defaultData :SignatureData = {
+  company: {
+      FirstName: '',
       LastName: "",
       JobTitle: "",
       CompanyName: "",
@@ -87,7 +91,33 @@ export const SignatureProvider = ({ children }: { children: ReactNode }) => {
       SignatureUrl: "",
     },
     selectedTemplate: "classic", 
+  }
+  const [data, setData] = useState<SignatureData>(()=>{
+    try{
+      const savedData = localStorage.getItem('Signature')
+      // have to merge it with the default data , otherwise it saves partially
+      return savedData ? {...defaultData, ...JSON.parse(savedData)} : defaultData
+    }catch(err){
+      console.error(err)
+      return defaultData
+    }
+    
   });
+
+  // ---------Save to local storage when updated --------
+  useEffect(()=>{
+    try{
+      const savedDataString = JSON.stringify(data)
+      console.log('saving to local storage',data)
+      localStorage.setItem('Signature',savedDataString)
+    }catch(err){
+      console.error(err)
+    }
+  },[data])
+
+
+
+
 
   // Update helpers
   const setCompany = (company: Partial<CompanyData>) =>

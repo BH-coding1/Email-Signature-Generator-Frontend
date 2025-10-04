@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SsoCallbackRouteImport } from './routes/sso-callback'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactIndexRouteImport } from './routes/contact/index'
 import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
@@ -16,9 +17,15 @@ import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as PlatformToolsPlatformSettingsIndexRouteImport } from './routes/PlatformTools/platformSettings/index'
 import { Route as PlatformToolsIntergrationIndexRouteImport } from './routes/PlatformTools/intergration/index'
 import { Route as PlatformToolsDashboardIndexRouteImport } from './routes/PlatformTools/dashboard/index'
+import { Route as PlatformToolsSignatureLibraryIndexRouteImport } from './routes/PlatformTools/SignatureLibrary/index'
 import { Route as PlatformToolsSignatureGeneratorIndexRouteImport } from './routes/PlatformTools/SignatureGenerator/index'
 import { Route as PlatformToolsSignatureGeneratorEditorIndexRouteImport } from './routes/PlatformTools/SignatureGenerator/Editor/index'
 
+const SsoCallbackRoute = SsoCallbackRouteImport.update({
+  id: '/sso-callback',
+  path: '/sso-callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -57,6 +64,12 @@ const PlatformToolsDashboardIndexRoute =
     path: '/PlatformTools/dashboard/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PlatformToolsSignatureLibraryIndexRoute =
+  PlatformToolsSignatureLibraryIndexRouteImport.update({
+    id: '/PlatformTools/SignatureLibrary/',
+    path: '/PlatformTools/SignatureLibrary/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PlatformToolsSignatureGeneratorIndexRoute =
   PlatformToolsSignatureGeneratorIndexRouteImport.update({
     id: '/PlatformTools/SignatureGenerator/',
@@ -72,10 +85,12 @@ const PlatformToolsSignatureGeneratorEditorIndexRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/sso-callback': typeof SsoCallbackRoute
   '/register': typeof authRegisterRoute
   '/sign-in': typeof authSignInRoute
   '/contact': typeof ContactIndexRoute
   '/PlatformTools/SignatureGenerator': typeof PlatformToolsSignatureGeneratorIndexRoute
+  '/PlatformTools/SignatureLibrary': typeof PlatformToolsSignatureLibraryIndexRoute
   '/PlatformTools/dashboard': typeof PlatformToolsDashboardIndexRoute
   '/PlatformTools/intergration': typeof PlatformToolsIntergrationIndexRoute
   '/PlatformTools/platformSettings': typeof PlatformToolsPlatformSettingsIndexRoute
@@ -83,10 +98,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/sso-callback': typeof SsoCallbackRoute
   '/register': typeof authRegisterRoute
   '/sign-in': typeof authSignInRoute
   '/contact': typeof ContactIndexRoute
   '/PlatformTools/SignatureGenerator': typeof PlatformToolsSignatureGeneratorIndexRoute
+  '/PlatformTools/SignatureLibrary': typeof PlatformToolsSignatureLibraryIndexRoute
   '/PlatformTools/dashboard': typeof PlatformToolsDashboardIndexRoute
   '/PlatformTools/intergration': typeof PlatformToolsIntergrationIndexRoute
   '/PlatformTools/platformSettings': typeof PlatformToolsPlatformSettingsIndexRoute
@@ -95,10 +112,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/sso-callback': typeof SsoCallbackRoute
   '/(auth)/register': typeof authRegisterRoute
   '/(auth)/sign-in': typeof authSignInRoute
   '/contact/': typeof ContactIndexRoute
   '/PlatformTools/SignatureGenerator/': typeof PlatformToolsSignatureGeneratorIndexRoute
+  '/PlatformTools/SignatureLibrary/': typeof PlatformToolsSignatureLibraryIndexRoute
   '/PlatformTools/dashboard/': typeof PlatformToolsDashboardIndexRoute
   '/PlatformTools/intergration/': typeof PlatformToolsIntergrationIndexRoute
   '/PlatformTools/platformSettings/': typeof PlatformToolsPlatformSettingsIndexRoute
@@ -108,10 +127,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/sso-callback'
     | '/register'
     | '/sign-in'
     | '/contact'
     | '/PlatformTools/SignatureGenerator'
+    | '/PlatformTools/SignatureLibrary'
     | '/PlatformTools/dashboard'
     | '/PlatformTools/intergration'
     | '/PlatformTools/platformSettings'
@@ -119,10 +140,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/sso-callback'
     | '/register'
     | '/sign-in'
     | '/contact'
     | '/PlatformTools/SignatureGenerator'
+    | '/PlatformTools/SignatureLibrary'
     | '/PlatformTools/dashboard'
     | '/PlatformTools/intergration'
     | '/PlatformTools/platformSettings'
@@ -130,10 +153,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/sso-callback'
     | '/(auth)/register'
     | '/(auth)/sign-in'
     | '/contact/'
     | '/PlatformTools/SignatureGenerator/'
+    | '/PlatformTools/SignatureLibrary/'
     | '/PlatformTools/dashboard/'
     | '/PlatformTools/intergration/'
     | '/PlatformTools/platformSettings/'
@@ -142,10 +167,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SsoCallbackRoute: typeof SsoCallbackRoute
   authRegisterRoute: typeof authRegisterRoute
   authSignInRoute: typeof authSignInRoute
   ContactIndexRoute: typeof ContactIndexRoute
   PlatformToolsSignatureGeneratorIndexRoute: typeof PlatformToolsSignatureGeneratorIndexRoute
+  PlatformToolsSignatureLibraryIndexRoute: typeof PlatformToolsSignatureLibraryIndexRoute
   PlatformToolsDashboardIndexRoute: typeof PlatformToolsDashboardIndexRoute
   PlatformToolsIntergrationIndexRoute: typeof PlatformToolsIntergrationIndexRoute
   PlatformToolsPlatformSettingsIndexRoute: typeof PlatformToolsPlatformSettingsIndexRoute
@@ -154,6 +181,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sso-callback': {
+      id: '/sso-callback'
+      path: '/sso-callback'
+      fullPath: '/sso-callback'
+      preLoaderRoute: typeof SsoCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -203,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformToolsDashboardIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/PlatformTools/SignatureLibrary/': {
+      id: '/PlatformTools/SignatureLibrary/'
+      path: '/PlatformTools/SignatureLibrary'
+      fullPath: '/PlatformTools/SignatureLibrary'
+      preLoaderRoute: typeof PlatformToolsSignatureLibraryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/PlatformTools/SignatureGenerator/': {
       id: '/PlatformTools/SignatureGenerator/'
       path: '/PlatformTools/SignatureGenerator'
@@ -222,11 +263,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SsoCallbackRoute: SsoCallbackRoute,
   authRegisterRoute: authRegisterRoute,
   authSignInRoute: authSignInRoute,
   ContactIndexRoute: ContactIndexRoute,
   PlatformToolsSignatureGeneratorIndexRoute:
     PlatformToolsSignatureGeneratorIndexRoute,
+  PlatformToolsSignatureLibraryIndexRoute:
+    PlatformToolsSignatureLibraryIndexRoute,
   PlatformToolsDashboardIndexRoute: PlatformToolsDashboardIndexRoute,
   PlatformToolsIntergrationIndexRoute: PlatformToolsIntergrationIndexRoute,
   PlatformToolsPlatformSettingsIndexRoute:

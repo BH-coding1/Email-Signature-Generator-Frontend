@@ -4,12 +4,14 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
+import { useUser } from '@clerk/clerk-react'
 
 export const Route = createFileRoute('/PlatformTools/platformSettings/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const {user} = useUser()
   return(
     <SideBarLayout>
       
@@ -22,8 +24,8 @@ function RouteComponent() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input placeholder="Full Name" defaultValue="John Doe" />
-            <Input placeholder="Email" type="email" defaultValue="john@example.com" />
+            <Input placeholder="Full Name" defaultValue={user?.username?.toUpperCase() as string}/>
+            <Input placeholder="Email" type="email" defaultValue={user?.emailAddresses as any} />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input placeholder="Current Password" type="password" />
@@ -42,7 +44,6 @@ function RouteComponent() {
           <Input placeholder="Company Name" defaultValue="" />
           <Input placeholder="Website" type="url" defaultValue="" />
           <div className="flex items-center gap-4">
-            <label className="font-medium">Logo Upload:</label>
             <input type="file" />
           </div>
         </CardContent>
@@ -78,16 +79,7 @@ function RouteComponent() {
         </CardContent>
       </Card>
 
-      {/* Danger Zone */}
-      <Card className="w-full shadow-sm border border-red-300 rounded-xl bg-red-50">
-        <CardHeader>
-          <CardTitle className="text-red-600">Danger Zone</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <p className="text-red-700">Delete your account or reset all data. This cannot be undone.</p>
-          <Button className="bg-red-600 hover:bg-red-700 text-white">Delete Account</Button>
-        </CardContent>
-      </Card>
+      
     </div>
     </SideBarLayout>
   )

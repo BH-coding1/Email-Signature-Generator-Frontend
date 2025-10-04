@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Link as ScrollLink } from "react-scroll";
 const NavBar = () => {
   return (
-    <div className="navbar backdrop-blur-sm bg-white/70 border-b border-slate-200 border-b border-gray-100 px-10 py-3 sticky top-0 z-50 flex justify-between">
+    <div className="navbar backdrop-blur-sm bg-white/70 border-b fixed border-slate-200 border-b border-gray-100 px-10 py-3 sticky top-0 z-50 flex justify-between">
       <div className="">
         <Link to="/" className="text-xl font-semibold text-blue-600">
           MailGen

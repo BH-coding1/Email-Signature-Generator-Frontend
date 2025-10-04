@@ -5,6 +5,11 @@ import MinimalLayout from "@/components/MinimalLayout";
 import CorporateLayout from "@/components/CoperateLayout";
 import CompactLayout from "@/components/CompactLayout";
 import { useSignature } from "@/context/SignatureContext";
+import {useApi} from "@/lib/axios";
+import { useMutation, useQueryClient, type UseMutationResult } from "@tanstack/react-query";
+import type React from "react";
+import { Button } from "@/components/ui/button";
+
 export const Route = createFileRoute("/PlatformTools/SignatureGenerator/")({
   component: RouteComponent,
 });
@@ -27,6 +32,29 @@ function RouteComponent() {
         return <ClassicLayout />;
     }
   })();
+const api = useApi()
+const queryClient = useQueryClient()
+const SaveSignatureMutation:UseMutationResult = useMutation({
+  mutationFn: async (data)=>{
+    const res = await api.post('/signature',data,{withCredentials:true})
+    
+    return res.data
+  },
+  onSuccess:async ()=>{
+    await queryClient.invalidateQueries({ queryKey: ["signatures"] });
+  await queryClient.refetchQueries({ queryKey: ["signatures"] });
+  },onError:(err:any)=>{
+    console.error(err.response?.data?.message || err.message)
+  }
+})
+
+const handleSave = (e:React.FormEvent)=>{
+  e.preventDefault()
+  
+  SaveSignatureMutation.mutate(data)
+  
+}
+
   return (
     <SideBarLayout>
       {/* Container */}
@@ -53,12 +81,13 @@ function RouteComponent() {
             >
               Edit Signature
             </Link>
-            <Link
-              to="/PlatformTools/SignatureGenerator/Editor"
+            <Button
+              onClick={handleSave}
+              
               className="bg-white text-center mt-5 text-blue-600 border border-blue-600 font-medium rounded-lg px-4 py-2 hover:bg-blue-100 transition-colors"
             >
               Save Signature
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

@@ -11,11 +11,14 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link } from "@tanstack/react-router";
-
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useSignIn } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
+import { FaGoogle } from "react-icons/fa";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 const formSchema = z.object({
   email: z.email("Please enter a valid email address."),
   password: z.string().min(6, "Password must be at least 6 characters."),
@@ -24,6 +27,10 @@ const formSchema = z.object({
 type FormSchemaType = z.infer<typeof formSchema>;
 
 export default function SignInForm() {
+  const { signIn,isLoaded,setActive } = useSignIn();
+  const { isSignedIn } = useAuth();
+  const navigate = useNavigate()
+  const [showPasssword, setShowPassword] = useState(false);
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,13 +38,24 @@ export default function SignInForm() {
       password: "",
     },
   });
-
+  
   async function onSubmit(values: FormSchemaType) {
+    if(!isLoaded){
+      return null;
+    }
     try {
-      console.log("Submitted:", values);
+      const SignInResult = await signIn?.create({
+        strategy:'password',
+        identifier:values.email,
+        password:values.password,
+      }) 
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
+      if (SignInResult?.status === 'complete'){
+        await setActive({session: SignInResult.createdSessionId})
+        navigate({to:'/PlatformTools/dashboard'})
+      }else{
+        throw new Error('Sign in failed')
+      }
       alert("✅ Signed in successfully!");
     } catch (error) {
       console.error(error);
@@ -45,8 +63,29 @@ export default function SignInForm() {
     }
   }
 
+  
+  async function handleGoogleSignIn() {
+    try {
+      if (!signIn) return;
+      if (isSignedIn) {
+      navigate({ to: "/PlatformTools/dashboard" });
+      return
+    }
+      await signIn.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "http://localhost:3000/sso-callback",
+        redirectUrlComplete: "http://localhost:3000/PlatformTools/dashboard",
+
+      });
+    } catch (err) {
+      console.error("Google popup sign-in error:", err);
+      alert("❌ Google sign-in failed, try again.");
+    }
+  }
+
+
   return (
-    <div className="w-full max-w-lg mx-auto  bg-white ">
+    <div className="w-full max-w-lg mx-auto   bg-white ">
       {/* Heading */}
       <h2 className="text-4xl font-semibold text-gray-900 mb-3 text-center">
         Welcome Back to MailGen
@@ -55,21 +94,32 @@ export default function SignInForm() {
         Get started for free — no credit card needed
       </h2>
 
-      {/* Form */}
+      <div className="flex w-full flex-col">
+        <div className="">
+          <Button
+            type="button"
+            className="w-full flex items-center justify-center gap-2 rounded-3xl mb-0 border border-gray-300 bg-white text-gray-700 font-medium py-5 hover:bg-gray-50 mb-6"
+            onClick={handleGoogleSignIn}
+          >
+            <FaGoogle className="text-xl" />
+            Continue with Google
+          </Button>
+        </div>
+        <div className="divider">OR</div>
+        
+          {/* Form */}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6"
+          className="space-y-4"
           noValidate
         >
-         
           {/* Email */}
           <FormField
             control={form.control}
             name="email"
             render={({ field, fieldState }) => (
               <FormItem>
-                
                 <FormControl>
                   <Input
                     type="email"
@@ -93,10 +143,11 @@ export default function SignInForm() {
             name="password"
             render={({ field, fieldState }) => (
               <FormItem>
-                <FormLabel className="text-lg font-medium">Password</FormLabel>
+                <FormLabel className="text-lg font-normal">Password</FormLabel>
+                <div className="relative">
                 <FormControl>
                   <Input
-                    type="password"
+                    type={showPasssword ? "text" : "password"}
                     placeholder="••••••••"
                     {...field}
                     className={`h-13 text-lg px-4 bg-white border ${
@@ -106,6 +157,16 @@ export default function SignInForm() {
                     }`}
                   />
                 </FormControl>
+                <Button
+                        type="button"
+                        onClick={() => {
+                          setShowPassword(!showPasssword);
+                        }}
+                        className={`absolute right-2 bg-white text-black hover:bg-white  top-1/6`}
+                      >
+                        {showPasssword ? <Eye /> : <EyeOff />}
+                      </Button>
+                    </div>
                 <FormMessage className="text-red-500" />
               </FormItem>
             )}
@@ -132,6 +193,8 @@ export default function SignInForm() {
           Register
         </Link>
       </p>
-    </div>
+        </div>
+      </div>
+    
   );
 }

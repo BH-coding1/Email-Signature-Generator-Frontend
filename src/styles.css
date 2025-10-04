@@ -6,15 +6,24 @@
 
 @tailwind utilities;
 
-/* Override for light background - targets the root and body */
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+html, body {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none; 
+}
+
 :root {
-  --color-base-100: #f1f5f9; /* slate-100 */
+  --color-base-100: #f1f5f9; 
   --color-base-200: #ffffff;
   --radius: 0.625rem;
 
-  --background: #f1f5f9; /* slate-100 */
-  --foreground: #0f172a; /* slate-900 for text */
-  
+  --background: #f1f5f9; 
+  --foreground: #0f172a; 
   --card: #ffffff;
   --card-foreground: #0f172a;
 

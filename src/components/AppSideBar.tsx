@@ -1,4 +1,4 @@
-import { Folder, Home, Edit, Search, Settings, LogOut,LineSquiggle } from "lucide-react";
+import { Folder, Home, Edit, Settings, LogOut,LineSquiggle } from "lucide-react";
 
 import {
   Sidebar,
@@ -12,7 +12,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Link, useLocation } from "@tanstack/react-router";
-
+import { useClerk } from "@clerk/clerk-react";
+import { useNavigate } from "@tanstack/react-router";
 // Menu items.
 const items = [
   {
@@ -27,7 +28,7 @@ const items = [
   },
   {
     title: "Signature Library",
-    url: "/platformTools/library",
+    url: "/platformTools/SignatureLibrary",
     icon: Folder,
   },
   {
@@ -43,7 +44,13 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const {signOut} = useClerk()
+  const navigate = useNavigate()
   const { pathname } = useLocation();
+  const handleLogout = async () =>{
+    await signOut();
+    navigate({to:'/'})
+  }
   return (
     <Sidebar>
       <SidebarHeader className="items-center font-semibold text-xl mt-4">
@@ -84,10 +91,10 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link to="/">
+              <div onClick={handleLogout}>
                 <LogOut />
                 <span>Logout</span>
-              </Link>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

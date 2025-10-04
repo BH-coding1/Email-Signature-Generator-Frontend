@@ -13,7 +13,7 @@ function App() {
   return (
     <>
     <NavBar/>
-    <div className='px-9 bg-white'>
+    <div className='px-9 bg-white no-scrollbar'>
       <Hero/>
       <ToolShowCase/>
       <FeaturesSection/>
