@@ -17,17 +17,17 @@ function RouteComponent() {
   const RenderedLayout = (() => {
     switch (data.selectedTemplate) {
       case "classic":
-        return <ClassicLayout />;
+        return <ClassicLayout signature={data}/>;
       case "minimal":
-        return <MinimalLayout />;
+        return <MinimalLayout signature={data}/>;
       case "compact":
        
-        return <CompactLayout />; 
+        return <CompactLayout signature={data}/>; 
       case "coperate":
         
-        return <CorporateLayout />; 
+        return <CorporateLayout signature={data}/>; 
       default:
-        return <ClassicLayout />;
+        return <ClassicLayout signature={data} />;
     }
   })();
 

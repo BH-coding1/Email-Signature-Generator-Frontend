@@ -21,9 +21,9 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
+import { useParams } from "@tanstack/react-router";
 
-
-import { useSignature } from "@/context/SignatureContext";
+import { useSignature } from "@/context/SavedSignatureContext";
 
 // --- Form schema ---
 const formSchema = z.object({
@@ -49,14 +49,14 @@ const fonts = ["Arial", "Helvetica", "Roboto", "Times New Roman", "Georgia"];
 const StylesEditor = () => {
   // get styles + updater from context
   const { data, setStyle } = useSignature();
-
+    const { SignatureID } = useParams({ from: "/PlatformTools/SignatureLibrary/$SignatureID/Editor/" });
   const form = useForm<StylesFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: data.style, //  prefill with current context styles
   });
 
   const onSubmit = (values: StylesFormValues) => {
-    setStyle(values); 
+    setStyle(values,SignatureID); 
   };
 
   return (

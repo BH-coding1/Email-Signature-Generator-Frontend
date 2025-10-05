@@ -19,7 +19,9 @@ import { Route as PlatformToolsIntergrationIndexRouteImport } from './routes/Pla
 import { Route as PlatformToolsDashboardIndexRouteImport } from './routes/PlatformTools/dashboard/index'
 import { Route as PlatformToolsSignatureLibraryIndexRouteImport } from './routes/PlatformTools/SignatureLibrary/index'
 import { Route as PlatformToolsSignatureGeneratorIndexRouteImport } from './routes/PlatformTools/SignatureGenerator/index'
+import { Route as PlatformToolsSignatureLibrarySignatureIDIndexRouteImport } from './routes/PlatformTools/SignatureLibrary/$SignatureID/index'
 import { Route as PlatformToolsSignatureGeneratorEditorIndexRouteImport } from './routes/PlatformTools/SignatureGenerator/Editor/index'
+import { Route as PlatformToolsSignatureLibrarySignatureIDEditorIndexRouteImport } from './routes/PlatformTools/SignatureLibrary/$SignatureID/Editor/index'
 
 const SsoCallbackRoute = SsoCallbackRouteImport.update({
   id: '/sso-callback',
@@ -76,10 +78,22 @@ const PlatformToolsSignatureGeneratorIndexRoute =
     path: '/PlatformTools/SignatureGenerator/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PlatformToolsSignatureLibrarySignatureIDIndexRoute =
+  PlatformToolsSignatureLibrarySignatureIDIndexRouteImport.update({
+    id: '/PlatformTools/SignatureLibrary/$SignatureID/',
+    path: '/PlatformTools/SignatureLibrary/$SignatureID/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PlatformToolsSignatureGeneratorEditorIndexRoute =
   PlatformToolsSignatureGeneratorEditorIndexRouteImport.update({
     id: '/PlatformTools/SignatureGenerator/Editor/',
     path: '/PlatformTools/SignatureGenerator/Editor/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PlatformToolsSignatureLibrarySignatureIDEditorIndexRoute =
+  PlatformToolsSignatureLibrarySignatureIDEditorIndexRouteImport.update({
+    id: '/PlatformTools/SignatureLibrary/$SignatureID/Editor/',
+    path: '/PlatformTools/SignatureLibrary/$SignatureID/Editor/',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -95,6 +109,8 @@ export interface FileRoutesByFullPath {
   '/PlatformTools/intergration': typeof PlatformToolsIntergrationIndexRoute
   '/PlatformTools/platformSettings': typeof PlatformToolsPlatformSettingsIndexRoute
   '/PlatformTools/SignatureGenerator/Editor': typeof PlatformToolsSignatureGeneratorEditorIndexRoute
+  '/PlatformTools/SignatureLibrary/$SignatureID': typeof PlatformToolsSignatureLibrarySignatureIDIndexRoute
+  '/PlatformTools/SignatureLibrary/$SignatureID/Editor': typeof PlatformToolsSignatureLibrarySignatureIDEditorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -108,6 +124,8 @@ export interface FileRoutesByTo {
   '/PlatformTools/intergration': typeof PlatformToolsIntergrationIndexRoute
   '/PlatformTools/platformSettings': typeof PlatformToolsPlatformSettingsIndexRoute
   '/PlatformTools/SignatureGenerator/Editor': typeof PlatformToolsSignatureGeneratorEditorIndexRoute
+  '/PlatformTools/SignatureLibrary/$SignatureID': typeof PlatformToolsSignatureLibrarySignatureIDIndexRoute
+  '/PlatformTools/SignatureLibrary/$SignatureID/Editor': typeof PlatformToolsSignatureLibrarySignatureIDEditorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,6 +140,8 @@ export interface FileRoutesById {
   '/PlatformTools/intergration/': typeof PlatformToolsIntergrationIndexRoute
   '/PlatformTools/platformSettings/': typeof PlatformToolsPlatformSettingsIndexRoute
   '/PlatformTools/SignatureGenerator/Editor/': typeof PlatformToolsSignatureGeneratorEditorIndexRoute
+  '/PlatformTools/SignatureLibrary/$SignatureID/': typeof PlatformToolsSignatureLibrarySignatureIDIndexRoute
+  '/PlatformTools/SignatureLibrary/$SignatureID/Editor/': typeof PlatformToolsSignatureLibrarySignatureIDEditorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -137,6 +157,8 @@ export interface FileRouteTypes {
     | '/PlatformTools/intergration'
     | '/PlatformTools/platformSettings'
     | '/PlatformTools/SignatureGenerator/Editor'
+    | '/PlatformTools/SignatureLibrary/$SignatureID'
+    | '/PlatformTools/SignatureLibrary/$SignatureID/Editor'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,6 +172,8 @@ export interface FileRouteTypes {
     | '/PlatformTools/intergration'
     | '/PlatformTools/platformSettings'
     | '/PlatformTools/SignatureGenerator/Editor'
+    | '/PlatformTools/SignatureLibrary/$SignatureID'
+    | '/PlatformTools/SignatureLibrary/$SignatureID/Editor'
   id:
     | '__root__'
     | '/'
@@ -163,6 +187,8 @@ export interface FileRouteTypes {
     | '/PlatformTools/intergration/'
     | '/PlatformTools/platformSettings/'
     | '/PlatformTools/SignatureGenerator/Editor/'
+    | '/PlatformTools/SignatureLibrary/$SignatureID/'
+    | '/PlatformTools/SignatureLibrary/$SignatureID/Editor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -177,6 +203,8 @@ export interface RootRouteChildren {
   PlatformToolsIntergrationIndexRoute: typeof PlatformToolsIntergrationIndexRoute
   PlatformToolsPlatformSettingsIndexRoute: typeof PlatformToolsPlatformSettingsIndexRoute
   PlatformToolsSignatureGeneratorEditorIndexRoute: typeof PlatformToolsSignatureGeneratorEditorIndexRoute
+  PlatformToolsSignatureLibrarySignatureIDIndexRoute: typeof PlatformToolsSignatureLibrarySignatureIDIndexRoute
+  PlatformToolsSignatureLibrarySignatureIDEditorIndexRoute: typeof PlatformToolsSignatureLibrarySignatureIDEditorIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -251,11 +279,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformToolsSignatureGeneratorIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/PlatformTools/SignatureLibrary/$SignatureID/': {
+      id: '/PlatformTools/SignatureLibrary/$SignatureID/'
+      path: '/PlatformTools/SignatureLibrary/$SignatureID'
+      fullPath: '/PlatformTools/SignatureLibrary/$SignatureID'
+      preLoaderRoute: typeof PlatformToolsSignatureLibrarySignatureIDIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/PlatformTools/SignatureGenerator/Editor/': {
       id: '/PlatformTools/SignatureGenerator/Editor/'
       path: '/PlatformTools/SignatureGenerator/Editor'
       fullPath: '/PlatformTools/SignatureGenerator/Editor'
       preLoaderRoute: typeof PlatformToolsSignatureGeneratorEditorIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/PlatformTools/SignatureLibrary/$SignatureID/Editor/': {
+      id: '/PlatformTools/SignatureLibrary/$SignatureID/Editor/'
+      path: '/PlatformTools/SignatureLibrary/$SignatureID/Editor'
+      fullPath: '/PlatformTools/SignatureLibrary/$SignatureID/Editor'
+      preLoaderRoute: typeof PlatformToolsSignatureLibrarySignatureIDEditorIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -277,6 +319,10 @@ const rootRouteChildren: RootRouteChildren = {
     PlatformToolsPlatformSettingsIndexRoute,
   PlatformToolsSignatureGeneratorEditorIndexRoute:
     PlatformToolsSignatureGeneratorEditorIndexRoute,
+  PlatformToolsSignatureLibrarySignatureIDIndexRoute:
+    PlatformToolsSignatureLibrarySignatureIDIndexRoute,
+  PlatformToolsSignatureLibrarySignatureIDEditorIndexRoute:
+    PlatformToolsSignatureLibrarySignatureIDEditorIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

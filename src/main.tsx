@@ -49,8 +49,10 @@ if (rootElement && !rootElement.innerHTML) {
       
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
         <SignatureProvider>
+        
           <RouterProvider router={router} />
         </SignatureProvider>
+        
       </ClerkProvider>
     </StrictMode>
     </QueryClientProvider>

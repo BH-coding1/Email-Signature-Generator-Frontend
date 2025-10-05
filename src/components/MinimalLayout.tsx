@@ -1,6 +1,6 @@
 "use client";
 
-import { useSignature } from "@/context/SignatureContext";
+import {type SignatureData } from "@/context/SignatureContext";
 import {
   Linkedin,
   Twitter,
@@ -12,9 +12,12 @@ import {
   MapPin,
 } from "lucide-react";
 
-const MinimalLayout = () => {
-  const { data } = useSignature();
-  const { company, style, images } = data;
+type MinimalLayoutProps ={
+  signature:SignatureData
+}
+const MinimalLayout = ({signature}:MinimalLayoutProps) => {
+  
+  const { company, style, images } = signature;
 
   const firstName = company.FirstName || "John";
   const lastName = company.LastName || "Doe";

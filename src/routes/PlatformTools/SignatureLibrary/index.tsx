@@ -62,15 +62,15 @@ function RouteComponent() {
             const RenderedLayout = (() => {
               switch (signature.selectedTemplate) {
                 case "classic":
-                  return <ClassicLayout />;
+                  return <ClassicLayout signature={signature}/>;
                 case "minimal":
-                  return <MinimalLayout />;
+                  return <MinimalLayout signature={signature} />;
                 case "compact":
-                  return <CompactLayout />;
+                  return <CompactLayout signature={signature}/>;
                 case "coperate":
-                  return <CorporateLayout />;
+                  return <CorporateLayout signature={signature}/>;
                 default:
-                  return <ClassicLayout />;
+                  return <ClassicLayout signature={signature}/>;
               }
             })();
 
@@ -91,7 +91,7 @@ function RouteComponent() {
                 {/* Actions */}
                 <div className="grid grid-cols-2 justify-center gap-4">
                   <Link
-                    to="/PlatformTools/SignatureGenerator/Editor"
+                    to='/PlatformTools/SignatureLibrary/$SignatureID/Editor' params={{SignatureID:signature._id}}
                     className="bg-blue-600 text-center mt-5 text-white font-medium rounded-lg px-4 py-2 hover:bg-blue-500 transition-colors"
                   >
                     Edit Signature

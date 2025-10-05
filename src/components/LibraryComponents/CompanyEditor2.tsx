@@ -1,8 +1,9 @@
-"use client";
+// components/CompanyEditor.tsx
+'use client';
 
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
@@ -10,24 +11,25 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useSignature } from "@/context/SignatureContext"; 
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useSignature } from '@/context/SavedSignatureContext';
+import { useParams } from '@tanstack/react-router';
 
 // --- Schema ---
 const formSchema = z.object({
-  FirstName: z.string().min(2, "First name must be at least 2 characters"),
-  LastName: z.string().min(2, "Last name must be at least 2 characters").optional(),
-  JobTitle: z.string().optional(),
-  CompanyName: z.string().optional(),
+  FirstName: z.string().min(2, 'First name must be at least 2 characters'),
+  LastName: z.string().min(2, 'Last name must be at least 2 characters').optional().or(z.literal('')),
+  JobTitle: z.string().optional().or(z.literal('')),
+  CompanyName: z.string().optional().or(z.literal('')),
   PhoneNumber: z
     .string()
-    .regex(/^[\d+\-() ]+$/, "Invalid phone number format")
-    .optional(),
-  EmailAddress: z.string().email("Invalid email address"),
-  Website: z.string().url("Invalid URL").optional(),
-  Address: z.string().optional(),
+    .regex(/^[\d+\-() ]+$/, 'Invalid phone number format')
+    .optional().or(z.literal('')),
+  EmailAddress: z.string().email('Invalid email address'),
+  Website: z.string().url('Invalid URL').optional().or(z.literal('')),
+  Address: z.string().optional().or(z.literal('')),
 });
 
 type SchemaKeys = keyof z.infer<typeof formSchema>;
@@ -41,32 +43,49 @@ export type FieldType = {
 };
 
 const Fields: FieldType[] = [
-  { Name: "FirstName", placeholder: "John", Type: "text", label: "First Name" },
-  { Name: "LastName", placeholder: "Doe", Type: "text", label: "Last Name" },
-  { Name: "JobTitle", placeholder: "Software Engineer", Type: "text", label: "Job Title" },
-  { Name: "CompanyName", placeholder: "Acme Inc.", Type: "text", label: "Company Name" },
-  { Name: "PhoneNumber", placeholder: "+1 555 123 4567", Type: "tel", label: "Phone Number" },
-  { Name: "EmailAddress", placeholder: "john.doe@example.com", Type: "email", label: "Email Address" },
-  { Name: "Website", placeholder: "https://example.com", Type: "url", label: "Website" },
-  { Name: "Address", placeholder: "123 Main Street, New York, USA", Type: "text", label: "Address" },
+  { Name: 'FirstName', placeholder: 'John', Type: 'text', label: 'First Name' },
+  { Name: 'LastName', placeholder: 'Doe', Type: 'text', label: 'Last Name' },
+  { Name: 'JobTitle', placeholder: 'Software Engineer', Type: 'text', label: 'Job Title' },
+  { Name: 'CompanyName', placeholder: 'Acme Inc.', Type: 'text', label: 'Company Name' },
+  { Name: 'PhoneNumber', placeholder: '+1 555 123 4567', Type: 'tel', label: 'Phone Number' },
+  { Name: 'EmailAddress', placeholder: 'john.doe@example.com', Type: 'email', label: 'Email Address' },
+  { Name: 'Website', placeholder: 'https://example.com', Type: 'url', label: 'Website' },
+  { Name: 'Address', placeholder: '123 Main Street, New York, USA', Type: 'text', label: 'Address' },
 ];
 
 const CompanyEditor = () => {
-  const { data, setCompany } = useSignature(); // context
+  const { data, setCompany } = useSignature();
+  const { SignatureID } = useParams({ from: '/PlatformTools/SignatureLibrary/$SignatureID/Editor/' });
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: data.company, 
+    defaultValues: {
+      FirstName: data.company.FirstName || '',
+      LastName: data.company.LastName || '',
+      JobTitle: data.company.JobTitle || '',
+      CompanyName: data.company.CompanyName || '',
+      PhoneNumber: data.company.PhoneNumber || '',
+      EmailAddress: data.company.EmailAddress || '',
+      Website: data.company.Website || '',
+      Address: data.company.Address || '',
+    },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setCompany(values);
-    console.log("Updated Context:", values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      if (!SignatureID) {
+        throw new Error('SignatureID is required for saved signatures');
+      }
+      setCompany(values, SignatureID);
+      console.log('Updated Company:', values);
+    } catch (err) {
+      console.error('Failed to update company info:', err);
+    }
   }
 
   return (
     <div className="space-y-6">
       <h2 className="text-lg font-semibold">Company Information</h2>
-      
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           {/* --- Personal Info --- */}
@@ -84,7 +103,12 @@ const CompanyEditor = () => {
                     </FormLabel>
                     <div className="flex-1">
                       <FormControl>
-                        <Input placeholder={f.placeholder} {...field} type={f.Type} />
+                        <Input
+                          placeholder={f.placeholder}
+                          {...field}
+                          type={f.Type}
+                          value={field.value || ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </div>
@@ -109,7 +133,12 @@ const CompanyEditor = () => {
                     </FormLabel>
                     <div className="flex-1">
                       <FormControl>
-                        <Input placeholder={f.placeholder} {...field} type={f.Type} />
+                        <Input
+                          placeholder={f.placeholder}
+                          {...field}
+                          type={f.Type}
+                          value={field.value || ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </div>
@@ -134,7 +163,12 @@ const CompanyEditor = () => {
                     </FormLabel>
                     <div className="flex-1">
                       <FormControl>
-                        <Input placeholder={f.placeholder} {...field} type={f.Type} />
+                        <Input
+                          placeholder={f.placeholder}
+                          {...field}
+                          type={f.Type}
+                          value={field.value || ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </div>

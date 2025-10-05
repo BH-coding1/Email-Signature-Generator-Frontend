@@ -11,14 +11,14 @@ export const Route = createFileRoute("/PlatformTools/dashboard/")({
 
 export default function SignatureDashboard() {
   
-  const recent = [
-    { id: 1, name: "Sales — John Doe", template: "Modern Blue", date: "Sep 14" },
-    { id: 2, name: "Support — Jane", template: "Minimal", date: "Sep 12" },
-    { id: 3, name: "Marketing — Team", template: "Corporate", date: "Sep 10" },
-  ];
+  // const recent = [
+  //   { id: 1, name: "Sales — John Doe", template: "Modern Blue", date: "Sep 14" },
+  //   { id: 2, name: "Support — Jane", template: "Minimal", date: "Sep 12" },
+  //   { id: 3, name: "Marketing — Team", template: "Corporate", date: "Sep 10" },
+  // ];
 
   const templates = [
-    { id: 1, name: "Modern Blue", accent: "bg-blue-200", badge: "Free" },
+    { id: 1, name: "Modern ", accent: "bg-blue-200", badge: "Free" },
     { id: 2, name: "Minimal", accent: "bg-gray-100", badge: "Pro" },
     { id: 3, name: "Corporate", accent: "bg-amber-100", badge: "Free" },
   ];
@@ -47,7 +47,6 @@ export default function SignatureDashboard() {
                     <div className="text-sm text-slate-500">Templates</div>
                     <div className="text-lg font-semibold">Pick a design</div>
                   </div>
-                  <div className="text-sm text-blue-600">New</div>
                 </div>
 
                 <div className="mt-4 grid grid-cols-3 gap-2">
@@ -59,7 +58,7 @@ export default function SignatureDashboard() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-white border border-slate-200 p-4 shadow-sm h-62">
+              <div className="rounded-xl bg-white border border-slate-200 p-4 shadow-sm h-66">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm text-slate-500">Integrations</div>
@@ -67,13 +66,13 @@ export default function SignatureDashboard() {
                   </div>
                 </div>
 
-                <div className="mt-4 grid grid-cols-1 gap-2">
+                <div className="mt-2 grid grid-cols-1 gap-2">
                   <div className="flex items-center justify-between p-2 rounded-md border border-slate-100">
                     <div className="flex items-center gap-3">
                       <img src="/google_mail_gmail_logo_icon_159346.png" className="h-6 w-6" />
                       <div className="text-sm">Gmail</div>
                     </div>
-                    <button className="text-sm text-blue-600">Connect</button>
+                    <button className="text-sm text-gray-500">Connected</button>
                   </div>
 
                   <div className="flex items-center justify-between p-2 rounded-md border border-slate-100">
@@ -83,12 +82,33 @@ export default function SignatureDashboard() {
                     </div>
                     <button className="text-sm text-gray-500">Connected</button>
                   </div>
+
+                  <div className="flex items-center justify-between p-2 rounded-md border border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <img src="/1485482357-yahoo_78671.png" className="h-6 w-6" />
+                      <div className="text-sm">Yahoo</div>
+                    </div>
+                    
+                    <button className="text-sm text-gray-500">Connected</button>
+                  </div>
+
+
+                  <div className="flex items-center justify-between p-2 rounded-md border border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <img src="/Airmail.png" className="h-6 w-6" />
+                      <div className="text-sm">Airmail</div>
+                    </div>
+                    <button className="text-sm text-gray-500">Connected</button>
+                  </div>
+                
                 </div>
+
+                
               </div>
             </aside>
           </section>
 
-          {/* Recent activity */}
+          {/* Recent activity
           <section>
             <div className="rounded-xl bg-white border border-slate-200 p-4 shadow-sm">
               <div className="flex items-center justify-between">
@@ -108,7 +128,7 @@ export default function SignatureDashboard() {
                 ))}
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* Footer CTA */}
           <section className="flex items-center justify-center mb-10 ">

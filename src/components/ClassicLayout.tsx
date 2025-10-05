@@ -1,11 +1,15 @@
 "use client";
 
-import { useSignature } from "@/context/SignatureContext";
+import { type SignatureData } from "@/context/SignatureContext";
+
 import { Linkedin, Twitter, Facebook, User, Phone, Mail, Globe, MapPin } from "lucide-react";
 
-const ClassicLayout = () => {
-  const { data } = useSignature();
-  const { company, style, images } = data;
+type ClassicLayoutProps ={
+  signature:SignatureData
+}
+const ClassicLayout = ({signature}:ClassicLayoutProps) => {
+  
+  const { company, style, images } = signature;
 
   // Social Links
   const socialLinks = [

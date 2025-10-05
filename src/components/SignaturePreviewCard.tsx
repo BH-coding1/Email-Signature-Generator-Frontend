@@ -7,8 +7,9 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ClassicLayout from "./ClassicLayout";
-
+import { useSignature } from "@/context/SignatureContext";
 export default function SignaturePreviewCard() {
+  const {data} = useSignature()
   return (
     <Card className="col-span-2 shadow-sm border">
       <CardHeader className="flex flex-row items-start justify-between">
@@ -30,7 +31,7 @@ export default function SignaturePreviewCard() {
       </CardHeader>
 
       <CardContent>
-        <ClassicLayout/>
+        <ClassicLayout signature={data}/>
       </CardContent>
     </Card>
   );

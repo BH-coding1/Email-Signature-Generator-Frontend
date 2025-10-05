@@ -5,13 +5,14 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { useUser } from '@clerk/clerk-react'
-
+import { useSignature } from '@/context/SignatureContext'
 export const Route = createFileRoute('/PlatformTools/platformSettings/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
   const {user} = useUser()
+  const {data} = useSignature()
   return(
     <SideBarLayout>
       
@@ -24,13 +25,13 @@ function RouteComponent() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input placeholder="Full Name" defaultValue={user?.username?.toUpperCase() as string}/>
-            <Input placeholder="Email" type="email" defaultValue={user?.emailAddresses as any} />
+            <Input placeholder="Full Name" defaultValue={user?.username?.toUpperCase() as string || data.company.FirstName}/>
+            <Input placeholder="Email" type="email" defaultValue={user?.emailAddresses as any  } />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input placeholder="Current Password" type="password" />
             <Input placeholder="New Password" type="password" />
-          </div>
+          </div> */}
           <Button className="bg-blue-600 hover:bg-blue-700 text-white">Update Profile</Button>
         </CardContent>
       </Card>
@@ -41,15 +42,15 @@ function RouteComponent() {
           <CardTitle>Company / Branding</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Input placeholder="Company Name" defaultValue="" />
-          <Input placeholder="Website" type="url" defaultValue="" />
-          <div className="flex items-center gap-4">
+          <Input placeholder="Company Name" defaultValue={data.company.CompanyName} />
+          <Input placeholder="Website" type="url" defaultValue={data.company.Website} />
+          {/* <div className="flex items-center gap-4">
             <input type="file" />
-          </div>
+          </div> */}
         </CardContent>
       </Card>
 
-      {/* Preferences */}
+      {/* Preferences
       <Card className="w-full shadow-sm border border-gray-200 rounded-xl">
         <CardHeader>
           <CardTitle>Preferences</CardTitle>
@@ -60,7 +61,7 @@ function RouteComponent() {
             <Switch />
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* Notifications */}
       <Card className="w-full shadow-sm border border-gray-200 rounded-xl">
@@ -70,7 +71,7 @@ function RouteComponent() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
             <span>Email me when signature is shared</span>
-            <Switch defaultChecked />
+            <Switch  />
           </div>
           <div className="flex items-center justify-between">
             <span>Reminders for unused signatures</span>

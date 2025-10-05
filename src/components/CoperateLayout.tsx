@@ -1,11 +1,13 @@
 "use client";
 
-import { useSignature } from "@/context/SignatureContext";
+import { type SignatureData } from "@/context/SignatureContext";
 import { Linkedin, Twitter, Facebook, User, Phone, Mail, Globe, MapPin } from "lucide-react";
-
-const CorporateLayout = () => {
-  const { data } = useSignature();
-  const { company, style, images } = data;
+type CoperateLayoutProps ={
+  signature:SignatureData
+}
+const CorporateLayout = ({signature}:CoperateLayoutProps) => {
+  
+  const { company, style, images } = signature;
 
   const firstName = company.FirstName || "John";
   const lastName = company.LastName || "Doe";

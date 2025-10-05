@@ -1,4 +1,4 @@
-import { Mail, User } from "lucide-react"
+import {  User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Link } from "@tanstack/react-router"
 import { useUser } from "@clerk/clerk-react"
@@ -23,13 +23,7 @@ export function AppHeader() {
 
         {/* Right Side (Buttons) */}
         <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            className="flex items-center gap-2 border-slate-200"
-          >
-            <Mail className="h-4 w-4 text-slate-600" />
-            <span className="text-sm text-slate-700">Inbox</span>
-          </Button>
+          
           <Link to='/PlatformTools/platformSettings'>
           <Button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700">
             <User className="h-4 w-4" />
