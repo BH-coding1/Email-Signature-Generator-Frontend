@@ -73,8 +73,8 @@ export default function SignInForm() {
     }
       await signIn.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: "https://mailgen-eta.vercel.app/sso-callback",
-        redirectUrlComplete: "https://mailgen-eta.vercel.app/PlatformTools/dashboard",
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/PlatformTools/dashboard",
 
       });
     } catch (err) {
