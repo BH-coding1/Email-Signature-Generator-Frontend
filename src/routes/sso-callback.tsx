@@ -1,5 +1,5 @@
 "use client";
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AuthenticateWithRedirectCallback, useAuth } from "@clerk/clerk-react";
 import { useEffect } from "react";
 
