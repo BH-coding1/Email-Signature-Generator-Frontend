@@ -7,12 +7,12 @@ const Hero = () => {
       <div className="hero-content flex-col lg:flex-row-reverse max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <img
           src="/Screenshot_2025-09-10 202203.png"
-          className="w-full max-w-xs sm:max-w-sm lg:max-w-xl rounded-lg shadow-2xl mb-6 lg:mb-0 lg:ml-8"
+          className="w-full max-w-xs sm:max-w-sm lg:max-w-xl rounded-lg shadow-2xl mb-6 lg:mb-0 h-80"
           alt="Email signature generator preview"
         />
         <div className="text-center lg:text-left">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-            Professional email signature generator for you and your team
+            Professional email signature generator 
           </h1>
           <p className="py-4 sm:py-6 text-sm sm:text-base lg:text-lg max-w-md mx-auto lg:mx-0">
             Easiest way for you and your team to create professional Email Signatures, that will make your emails more presentable and impress your clients
