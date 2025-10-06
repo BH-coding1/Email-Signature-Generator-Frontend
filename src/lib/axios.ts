@@ -5,7 +5,7 @@ export const useApi = () => {
   
 const { getToken } = useAuth();
   const api = axios.create({
-    baseURL: "https://email-signature-generator-backend.onrender.com",
+    baseURL: "https://email-signature-generator-backend.onrender.com/api",
     withCredentials: true,
     
   });
