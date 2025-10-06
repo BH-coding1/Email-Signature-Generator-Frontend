@@ -13,7 +13,7 @@ function SsoCallbackPage() {
 
   useEffect(() => {
     if (isSignedIn) {
-      navigate({ to: redirect as any || "/PlatformTools/dashboard" });
+      navigate({to:"/PlatformTools/dashboard" });
     }
   }, [isSignedIn, navigate]);
 
