@@ -6,7 +6,7 @@ const Hero = () => {
     <div className="hero bg-white md:px-6 py-8 sm:py-12 lg:py-20">
       <div className="hero-content flex-col lg:flex-row-reverse max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <img
-          src="/public/Screenshot 2025-09-10 202203.png"
+          src="../../public/Screenshot 2025-09-10 202203.png"
           className="w-full max-w-xs sm:max-w-sm lg:max-w-xl rounded-lg shadow-2xl mb-6 lg:mb-0 lg:ml-8"
           alt="Email signature generator preview"
         />
