@@ -1,46 +1,25 @@
+import { Link } from "@tanstack/react-router";
 import { Element } from "react-scroll";
 const plans = [
   {
-    title: "Basic",
-    price: "$9/mo",
+    title: "Free",
+    price: "$0/mo",
     popular: false,
     features: [
-      { text: "High-resolution image generation", available: true },
+      { text: "High quality signatures", available: true },
       { text: "Customizable style templates", available: true },
-      { text: "Batch processing capabilities", available: false },
-      { text: "AI-driven image enhancements", available: false },
+      { text: "3rd party intergration", available: true },
+      { text: "Import export", available: true },
     ],
   },
-  {
-    title: "Pro",
-    price: "$19/mo",
-    popular: false,
-    features: [
-      { text: "High-resolution image generation", available: true },
-      { text: "Customizable style templates", available: true },
-      { text: "Batch processing capabilities", available: true },
-      { text: "AI-driven image enhancements", available: false },
-    ],
-  },
-  {
-    title: "Premium",
-    price: "$29/mo",
-    popular: true,
-    features: [
-      { text: "High-resolution image generation", available: true },
-      { text: "Customizable style templates", available: true },
-      { text: "Batch processing capabilities", available: true },
-      { text: "AI-driven image enhancements", available: true },
-      { text: "Seamless cloud integration", available: false },
-      { text: "Real-time collaboration tools", available: false },
-    ],
-  },
+
+
 ];
 
 const PricingSection = () => {
   return (
     <Element name="pricing">
-      <section className="pt-20 px-4 pb-30">
+      <section className="pt-20 px-4 pb-30 ">
         {/* Heading */}
         <div className="text-center pb-15">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
@@ -52,11 +31,11 @@ const PricingSection = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1  max-w-5xl  mx-auto ">
           {plans.map((plan) => (
             <div
               key={plan.title}
-              className="card bg-white shadow-lg border border-gray-200 w-full h-full p-6 rounded-2xl flex flex-col"
+              className="card bg-white shadow-md border border-gray-200 w-full h-full p-6 rounded-xl flex flex-col"
             >
               <div className="card-body flex flex-col">
                 {plan.popular && (
@@ -104,7 +83,7 @@ const PricingSection = () => {
                 </ul>
 
                 {/* CTA */}
-                <button className="btn bg-yellow-500 mt-6">Subscribe</button>
+                <Link to='/register' className="btn w-full bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% border-none mt-6 ">Subscribe</Link>
               </div>
             </div>
           ))}

@@ -1,5 +1,5 @@
 "use client";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { AuthenticateWithRedirectCallback, useAuth } from "@clerk/clerk-react";
 import { useEffect } from "react";
 
@@ -13,7 +13,7 @@ function SsoCallbackPage() {
 
   useEffect(() => {
     if (isSignedIn) {
-      navigate({ to: "/PlatformTools/dashboard" });
+      navigate({ to: redirect as any || "/PlatformTools/dashboard" });
     }
   }, [isSignedIn, navigate]);
 

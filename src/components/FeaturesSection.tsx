@@ -55,28 +55,27 @@ const FeaturesSection = () => {
   return (
     <>
       <Element name="features">
-        <div className="flex text-5xl font-bold text-gray-900 justify-center mb-10 ">
-          <p>What Makes Us Different</p>
-        </div>
-        <div className="w-full flex justify-center px-10 mb-20">
-          <div className="grid grid-cols-2 items-center gap-6  justify-center">
-            {features.map((feature) => (
-              <div
-                key={feature.Title}
-                className="card w-full bg-white card-lg shadow-lg flex items-center justify-center border border-gray-300"
-              >
-                <div className="card-body">
-                  <span className="text-xl"></span>
-
-                  <h2 className="card-title">
-                    {feature.Icon} {feature.Title}
-                  </h2>
-                  <p>{feature.Description}</p>
-                </div>
+        <div className="flex text-3xl sm:text-4xl lg:text-5xl sm:text-center font-bold text-gray-900 justify-center text-center mb-6  lg:mb-10">
+        <p>What Makes Us Different</p>
+      </div>
+      <div className="w-full flex justify-center px-4 sm:px-6 lg:px-10 mb-12 sm:mb-16 lg:mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-7xl w-full">
+          {features.map((feature) => (
+            <div
+              key={feature.Title}
+              className="card bg-white shadow-lg flex items-center justify-center border border-gray-300 p-4 sm:p-6"
+            >
+              <div className="card-body text-center">
+                <span className="text-lg sm:text-xl  mb-2 inline-block">{feature.Icon}</span>
+                <h2 className="card-title text-lg sm:text-xl lg:text-2xl mb-2">
+                  {feature.Title}
+                </h2>
+                <p className="text-sm sm:text-base lg:text-lg">{feature.Description}</p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+      </div>
       </Element>
     </>
   );

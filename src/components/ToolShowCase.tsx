@@ -8,26 +8,25 @@ const ToolShowCase = () => {
 
   return (
     <>
-    <div className="flex text-lg text-gray-600 justify-center pt-5 ">
-        <p>Generates Email signatures that can be used with :</p>
-    </div>
-    <div className="flex flex-col sm:flex-row w-full py-12 px-6 gap-6 sm:gap-0 justify-center items-center pt-5 bg-white mb-10">
-      
-      {tools.map((tool, index) => (
-        <div key={tool.name} className="flex items-center">
-          <div className="card bg-white rounded-lg  w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
-            <img
-              src={tool.logo}
-              alt={`${tool.name} logo`}
-              className="w-10 h-10 sm:w-20 sm:h-20 object-contain"
-            />
+      <div className="flex text-base sm:text-lg text-gray-600 justify-center pt-4 sm:pt-5">
+        <p>Generates Email signatures that can be used with:</p>
+      </div>
+      <div className="flex flex-row w-full max-w-full py-8 sm:py-12 px-2 sm:px-4 lg:px-8 gap-2 sm:gap-2 justify-center items-center bg-white mb-8 sm:mb-10 overflow-hidden">
+        {tools.map((tool, index) => (
+          <div key={tool.name} className="flex items-center flex-shrink-0">
+            <div className="card bg-white rounded-lg w-16 h-16 md:w-24 md:h-24 lg:w-40 lg:h-40 flex items-center justify-center">
+              <img
+                src={tool.logo}
+                alt={`${tool.name} logo`}
+                className="w-6 h-6 sm:w-5 sm:h-8 lg:w-20 lg:h-20 object-contain"
+              />
+            </div>
+            {index < tools.length - 1 && (
+              <div className="divider divider-horizontal mx-1 md:mx-0 lg:mx-4"></div>
+            )}
           </div>
-          {index < tools.length - 1 && (
-            <div className="divider divider-horizontal mx-4"></div>
-          )}
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </>
   );
 };

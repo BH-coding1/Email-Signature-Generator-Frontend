@@ -1,14 +1,38 @@
 import SideBarLayout from '@/components/SidebarLayout'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link, redirect } from '@tanstack/react-router'
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
-import { useUser } from '@clerk/clerk-react'
+import { useAuth, useUser } from '@clerk/clerk-react'
 import { useSignature } from '@/context/SignatureContext'
 export const Route = createFileRoute('/PlatformTools/platformSettings/')({
+beforeLoad: async () => {
+    const { isLoaded, isSignedIn } = useAuth();
+    if (!isLoaded) {
+      return;
+    }
+    if (!isSignedIn) {
+      throw redirect({
+        to: "/sign-in",
+        search: { redirect: "/PlatformTools/platformSettings/" },
+      });
+    }
+  },
   component: RouteComponent,
-})
+  errorComponent: () => (
+    <div className="p-10 text-center">
+      <h1 className="text-2xl font-bold text-gray-900">Denied</h1>
+      <p className="text-gray-600">Please sign in to access settings</p>
+      <Link
+        to="/sign-in"
+        className="btn mt-5 h-12 sm:h-13 w-full sm:w-40 lg:w-50 bg-white border border-blue-600 text-blue-600 rounded-4xl text-base sm:text-lg hover:bg-blue-100 transition duration-300"
+      >
+        Sign In
+      </Link>
+    </div>
+  ),
+});
 
 function RouteComponent() {
   const {user} = useUser()
@@ -25,7 +49,8 @@ function RouteComponent() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input placeholder="Full Name" defaultValue={user?.username?.toUpperCase() as string || data.company.FirstName}/>
+            <Input placeholder="Full Name" value={ user?.firstName?.toUpperCase() as string}/>
+            <Input placeholder="Full Name" value={ user?.lastName?.toUpperCase() as string}/>
             <Input placeholder="Email" type="email" defaultValue={user?.emailAddresses as any  } />
           </div>
           {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

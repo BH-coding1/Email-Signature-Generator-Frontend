@@ -11,55 +11,52 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useSignIn } from "@clerk/clerk-react";
-import { useSignUp } from "@clerk/clerk-react";
-import { useAuth } from "@clerk/clerk-react";
+import { useSignIn, useSignUp, useAuth } from "@clerk/clerk-react";
 import { useState } from "react";
 import { EyeOff, Eye } from "lucide-react";
 
+// Define the Zod schema for the form
 const formSchema = z.object({
-  FirstName: z.string().min(1, "Name must be at least 1 characters."),
-  LastName: z.string().min(1, "Name must be at least 1 characters."),
-  email: z.email("Please enter a valid email address."),
+  firstName: z.string().min(1, "First name must be at least 1 character."),
+  lastName: z.string().min(1, "Last name must be at least 1 character."),
+  email: z.string().email("Please enter a valid email address."),
   password: z.string().min(6, "Password must be at least 6 characters."),
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-export default function SignInForm() {
+export default function SignUpForm() {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      FirstName: "",
-      LastName: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
     },
   });
 
-  // registering with the form
-
   const { isLoaded, signUp, setActive } = useSignUp();
+  const { signIn } = useSignIn();
+  const { isSignedIn } = useAuth();
   const navigate = useNavigate();
   const [pendingVerification, setPendingVerification] = useState(false);
   const [emailCode, setEmailCode] = useState("");
-  const [showPasssword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
+  // Handle form submission for sign-up
   async function onSubmit(values: FormSchemaType) {
-    if (!isLoaded) {
+    if (!isLoaded || !signUp) {
       return;
     }
     try {
-      if (!signUp) return;
-
       await signUp.create({
-        firstName:values.FirstName,
-        lastName:values.LastName,
-        emailAddress: values.email,
+        firstName: values.firstName, 
+        lastName: values.lastName,  
+        emailAddress: values.email,  
         password: values.password,
       });
 
@@ -67,40 +64,39 @@ export default function SignInForm() {
         strategy: "email_code",
       });
       setPendingVerification(true);
-    } catch (err) {
-      console.error(err);
-      alert("❌ Sign up failed. Try again.");
+    } catch (err: any) {
+      console.error(JSON.stringify(err, null, 2));
+      const errorMessage = err.errors?.[0]?.message || "Sign up failed. Try again.";
+      alert(errorMessage);
     }
   }
 
-  async function OnPressVerify(e: React.FormEvent) {
+  // Handle email verification
+  async function onPressVerify(e: React.FormEvent) {
     e.preventDefault();
-    if (!isLoaded) {
+    if (!isLoaded || !signUp) {
       return;
     }
     try {
-      if (!signUp) return;
-
       const result = await signUp.attemptEmailAddressVerification({
         code: emailCode,
       });
       if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
-        alert("Email verified ");
+        alert("Email verified");
         navigate({ to: "/PlatformTools/dashboard" });
       } else {
         console.log(result);
+        alert("Verification failed. Please check the code.");
       }
-    } catch (err) {
-      console.error(err);
-      alert("wrong code buddy ,make sure you you have the correct email");
+    } catch (err: any) {
+      console.error(JSON.stringify(err, null, 2));
+      const errorMessage = err.errors?.[0]?.message || "Wrong code. Please check your email.";
+      alert(errorMessage);
     }
   }
 
-  // sign in function for authenticating using the continue with google button
-  const { signIn } = useSignIn();
-  const { isSignedIn } = useAuth();
-
+  // Handle Google OAuth sign-in
   async function handleGoogleSignIn() {
     try {
       if (!signIn) return;
@@ -113,27 +109,29 @@ export default function SignInForm() {
         redirectUrl: "http://localhost:3000/sso-callback",
         redirectUrlComplete: "http://localhost:3000/PlatformTools/dashboard",
       });
-    } catch (err) {
-      console.error("Google popup sign-in error:", err);
-      alert("❌ Google sign-in failed, try again.");
+    } catch (err: any) {
+      console.error("Google popup sign-in error:", JSON.stringify(err, null, 2));
+      alert("Google sign-in failed. Try again.");
     }
   }
+
   if (!isLoaded) {
     return null;
   }
+
   return (
-    <div className="w-full max-w-lg mx-auto  bg-white ">
+    <div className="w-full max-w-lg mx-auto bg-white">
       {/* Heading */}
       <h2 className="text-4xl font-semibold text-gray-900 mb-3 text-center">
         Welcome to MailGen
       </h2>
-      <h2 className="text-lg  text-gray-600 mb-7 text-center">
+      <h2 className="text-lg text-gray-600 mb-7 text-center">
         Get started for free — no credit card needed
       </h2>
-
       <div className="divider">OR</div>
+
       {pendingVerification ? (
-        <form onSubmit={OnPressVerify} className="space-y-4">
+        <form onSubmit={onPressVerify} className="space-y-4">
           <Input
             type="text"
             placeholder="Enter 6-digit code"
@@ -167,12 +165,12 @@ export default function SignInForm() {
             >
               <FormField
                 control={form.control}
-                name="FirstName"
+                name="firstName"
                 render={({ field, fieldState }) => (
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="Your first Name"
+                        placeholder="Your first name"
                         {...field}
                         className={`h-13 text-lg px-4 bg-white border ${
                           fieldState.invalid
@@ -181,19 +179,18 @@ export default function SignInForm() {
                         }`}
                       />
                     </FormControl>
-                    <FormDescription></FormDescription>
                     <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
-                name="LastName"
+                name="lastName"
                 render={({ field, fieldState }) => (
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="Your Last Name"
+                        placeholder="Your last name"
                         {...field}
                         className={`h-13 text-lg px-4 bg-white border ${
                           fieldState.invalid
@@ -202,7 +199,6 @@ export default function SignInForm() {
                         }`}
                       />
                     </FormControl>
-                    <FormDescription></FormDescription>
                     <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
@@ -215,7 +211,7 @@ export default function SignInForm() {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Your Work Email"
+                        placeholder="Your work email"
                         {...field}
                         className={`h-13 text-lg px-4 bg-white border ${
                           fieldState.invalid
@@ -228,19 +224,16 @@ export default function SignInForm() {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="password"
                 render={({ field, fieldState }) => (
                   <FormItem>
-                    <FormLabel className="text-lg font-normal">
-                      Password
-                    </FormLabel>
+                    <FormLabel className="text-lg font-normal">Password</FormLabel>
                     <div className="relative">
                       <FormControl>
                         <Input
-                          type={showPasssword ? "text" : "password"}
+                          type={showPassword ? "text" : "password"}
                           placeholder="••••••••"
                           {...field}
                           className={`h-13 text-lg px-4 bg-white border ${
@@ -252,19 +245,16 @@ export default function SignInForm() {
                       </FormControl>
                       <Button
                         type="button"
-                        onClick={() => {
-                          setShowPassword(!showPasssword);
-                        }}
-                        className={`absolute right-2 bg-white text-black hover:bg-white  top-1/6`}
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-2 bg-white text-black hover:bg-white top-1/6"
                       >
-                        {showPasssword ? <Eye /> : <EyeOff />}
+                        {showPassword ? <Eye /> : <EyeOff />}
                       </Button>
                     </div>
                     <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
-
               <Button
                 type="submit"
                 className="w-full rounded-3xl bg-blue-500 hover:bg-blue-600 text-white font-semibold py-5"
@@ -280,10 +270,7 @@ export default function SignInForm() {
       {/* Footer */}
       <p className="text-center text-sm text-gray-600 mt-6">
         Already have an account?{" "}
-        <Link
-          to="/sign-in"
-          className="text-blue-500 hover:underline font-medium"
-        >
+        <Link to="/sign-in" className="text-blue-500 hover:underline font-medium">
           Sign-in
         </Link>
       </p>
