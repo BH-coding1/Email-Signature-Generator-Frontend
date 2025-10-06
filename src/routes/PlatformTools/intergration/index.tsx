@@ -22,25 +22,25 @@ export const Route = createFileRoute("/PlatformTools/intergration/")({
 const intergrationApps = [
   {
     name: "Gmail",
-    logo: "../../public/google_mail_gmail_logo_icon_159346.png",
+    logo: "/google_mail_gmail_logo_icon_159346.png",
     description:
       "Easily apply and preview your signatures in Gmail with one click.",
   },
   {
     name: "Outlook",
-    logo: "../../public/microsoft_office_outlook_logo_icon_145721.png",
+    logo: "/microsoft_office_outlook_logo_icon_145721.png",
     description:
       "Seamlessly sync signatures across Outlook desktop and web apps.",
   },
   {
     name: "Yahoo",
-    logo: "../../public/1485482357-yahoo_78671.png",
+    logo: "/1485482357-yahoo_78671.png",
     description:
       "Add professional signatures to your Yahoo Mail with quick setup.",
   },
   {
     name: "Airmail",
-    logo: "../../public/Airmail.png",
+    logo: "/Airmail.png",
     description:
       "Integrate signatures directly into Airmail for a smooth workflow.",
   },
