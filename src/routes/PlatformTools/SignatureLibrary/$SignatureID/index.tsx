@@ -14,6 +14,6 @@ export const Route = createFileRoute(
 });
 function RouteComponent() {
   return (
-    <div>Nothing to see here lol </div>
+    <div>Nothing to see here lol</div>
   )
 }
