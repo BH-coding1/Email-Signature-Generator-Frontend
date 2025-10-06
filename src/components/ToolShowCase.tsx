@@ -1,9 +1,9 @@
 const ToolShowCase = () => {
   const tools = [
-    { name: 'Gmail', logo:'../../public/google_mail_gmail_logo_icon_159346.png' },
-    { name: 'Outlook', logo:'../../public/microsoft_office_outlook_logo_icon_145721.png'  },
-    { name: 'Yahoo', logo:'../../public/1485482357-yahoo_78671.png'},
-    { name: 'Airmail', logo:'../../public/Airmail.png'},
+    { name: 'Gmail', logo:'/google_mail_gmail_logo_icon_159346.png' },
+    { name: 'Outlook', logo:'/microsoft_office_outlook_logo_icon_145721.png'  },
+    { name: 'Yahoo', logo:'./1485482357-yahoo_78671.png'},
+    { name: 'Airmail', logo:'/Airmail.png'},
   ];
 
   return (
