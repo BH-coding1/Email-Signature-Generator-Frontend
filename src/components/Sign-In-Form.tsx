@@ -27,7 +27,7 @@ export default function SignInForm() {
           },
           elements: {
             formButtonPrimary: "bg-blue-500 hover:bg-blue-600 text-white",
-            formFieldInput: "border border-gray-300 rounded-md",
+            formFieldInput: "border border-gray-300 ",
             card: "shadow-md",
           },
         }}
