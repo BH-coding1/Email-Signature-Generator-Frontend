@@ -1,7 +1,7 @@
 const metrics = {
-    signatures: 18,
-    templates: 7,
-    published: 3,
+    signatures: 0,
+    templates: 4,
+    published: 0,
   };
 
 
@@ -15,7 +15,7 @@ const MetricsSection = () => {
             <div className="text-2xl font-bold">{metrics.signatures}</div>
             <div className="text-xs text-slate-500 mt-1">created total</div>
           </div>
-          <div className="text-sm text-green-600 font-medium">+12% </div>
+          <div className="text-sm text-green-600 font-medium">+0% </div>
         </div>
       </div>
 
