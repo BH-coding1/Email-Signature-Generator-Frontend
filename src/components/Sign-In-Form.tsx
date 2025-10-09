@@ -1,12 +1,17 @@
 "use client";
 
 
-import { SignIn} from "@clerk/clerk-react";
+import { SignIn, useSignIn, useUser} from "@clerk/clerk-react";
+import { Navigate } from "@tanstack/react-router";
 
 
 export default function SignInForm() {
   
-
+  const {isSignedIn} = useUser()
+  const {isLoaded} =useSignIn()
+  if (isLoaded && isSignedIn){
+    return(<Navigate to='/PlatformTools/dashboard' />)
+  }
 
   return (
     <div className="w-full max-w-lg mx-auto   bg-white ">
@@ -14,7 +19,7 @@ export default function SignInForm() {
         routing="path"
         path="/sign-in"
         signUpUrl="/register"
-        forceRedirectUrl="http://mailgen-eta.vercel.app/PlatformTools/dashboard"
+        forceRedirectUrl="/PlatformTools/dashboard"
         appearance={{
           variables:{
             colorPrimary:'blue'
