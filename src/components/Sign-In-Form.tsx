@@ -19,7 +19,7 @@ export default function SignInForm() {
         routing="path"
         path="/sign-in"
         signUpUrl="/register"
-        forceRedirectUrl="/PlatformTools/dashboard"
+        forceRedirectUrl="http://mailgen-eta.vercel.app/PlatformTools/dashboard"
         appearance={{
           variables:{
             colorPrimary:'blue'
