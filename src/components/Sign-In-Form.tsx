@@ -14,7 +14,7 @@ export default function SignInForm() {
         routing="path"
         path="/sign-in"
         signUpUrl="/register"
-        fallbackRedirectUrl="/PlatformTools/dashboard"
+        fallbackRedirectUrl="http://mailgen-eta.vercel.app/PlatformTools/dashboard"
         appearance={{
           variables:{
             colorPrimary:'blue'
